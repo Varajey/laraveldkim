@@ -34,8 +34,9 @@ class MailServiceProvider extends CoreMailServiceProvider {
 			$mailer = new Mailer(
 				$app['view'], $app['swift.mailer'], $app['events']
 			);
-
-			$this->setMailerDependencies($mailer, $app);
+            if (method_exists($this, 'setMailerDependencies')) {
+                $this->setMailerDependencies($mailer, $app);
+            }
 
 			// If a "from" address is set, we will set it on the mailer so that all mail
 			// messages sent by the applications will utilize the same "from" address
